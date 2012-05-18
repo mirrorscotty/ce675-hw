@@ -28,6 +28,8 @@ u = ones(length(xk),1); % How much to change the variables in each iteration. Se
 % Yay for Matlab knowing what function pointers are... sort of.
 f = {@func1a, @func2a, @arc};
 
+% Continue looping as long as the change from the previous iteration is
+% larger than the tolerance.
 while ((abs(u(1)) >= h) || (abs(u(2)) >= h) || (abs(u(3)) >= h))
     i = i+1;
     
@@ -68,10 +70,12 @@ end
 if(i>maxit) % If we didn't converge, then return something sad.
     theta1 = NaN;
     theta2 = NaN;
+    P = NaN;
 else
     if(xk(1)>2*pi)||(xk(1)<-2*pi) % Values larger than 2pi or smaller than 0 are bad.
         theta1 = NaN;
         theta2 = NaN;
+        P = NaN;
     else % Victory
         theta1 = xk(1);
         theta2 = xk(2);

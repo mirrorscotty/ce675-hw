@@ -1,3 +1,4 @@
+clear
 alpha = .01;
 
 npoints = 2000;
@@ -12,7 +13,13 @@ for i = 2:npoints
     [theta1(i), theta2(i), P(i)] = newtona([theta1(i-1); theta2(i-1); P(i-1)], alpha);
 end
 
-plot(P,theta1);
+plot1 = plot(P,theta1);
 hold on;
-plot(P,theta2);
+plot2 = plot(P,theta2);
 hold off;
+
+set(plot1, 'Color', 'red');
+set(plot2, 'Color', 'blue');
+legend('Theta1', 'Theta2');
+xlabel('P');
+ylabel('Angle (rad)');
