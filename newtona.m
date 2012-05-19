@@ -18,7 +18,9 @@ h = 1e-12; % Error tolerance for numerical differentiation.
 xkprev = xk; % Previously converged iteration
 
 % Initial guess (based on previous converged iteration)
-xk(3) = xk(3) + .001;
+xk(1) = xk(1) + 0.0001;
+xk(2) = xk(2) + 0.0001;
+xk(3) = xk(3) + 0.0001;
 
 xprev = xk; % Previously converged iteration
 

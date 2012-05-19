@@ -1,7 +1,7 @@
 clear
 alpha = .01;
 
-npoints = 2000;
+npoints = 4000;
 
 theta1 = zeros(npoints,1);
 theta2 = zeros(npoints,1);

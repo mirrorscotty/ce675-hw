@@ -11,4 +11,4 @@ P = blah;
 
 pi = -l*sin(B)*P-a*l*cos(B)*P+(k*(2*l^3*cos(B)*sin(B)+3*l^3*sin(A)*cos(B)))/6;
 
-pi = pi - arc(xk, xkprev, blah);
+pi = pi - xk(3)*arc(xk, xkprev, blah);
