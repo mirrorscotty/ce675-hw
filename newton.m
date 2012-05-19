@@ -1,4 +1,4 @@
-function [ theta1, theta2, P ] = newtona(xk, blah)
+function [ theta1, theta2] = newton(xk, blah, P)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,7 +6,6 @@ function [ theta1, theta2, P ] = newtona(xk, blah)
 %
 % xk(1): theta1
 % xk(2): theta2
-% xk(3): lambda
 
 maxit = 75; % Maximum number of iterations allowed before the solver gives
             % up.
@@ -19,22 +18,21 @@ xkprev = xk; % Previously converged iteration
 % Initial guess (based on previous converged iteration)
 xk(1) = xk(1) + 0.0001;
 xk(2) = xk(2) + 0.0001;
-xk(3) = xk(3) + 0.0001;
 
 u = ones(length(xk),1); % How much to change the variables in each iteration. Set to 1
                         % initially so the while loop runs at least once.
 
 % Yay for Matlab knowing what function pointers are... sort of.
-f = {@func1a, @func2a, @arc};
+f = {@func1, @func2};
 
 % Continue looping as long as the change from the previous iteration is
 % larger than the tolerance.
-while ((abs(u(1)) >= h) || (abs(u(2)) >= h) || (abs(u(3)) >= h))
+while ((abs(u(1)) >= h) || (abs(u(2)) >= h))
     i = i+1;
     
     % Create the R vector.
     for j=1:length(xk)
-        R(j,1) = f{j}(xk, xkprev, blah);
+        R(j,1) = f{j}(xk, blah, P);
     end
     
     % Initialize K
@@ -46,7 +44,7 @@ while ((abs(u(1)) >= h) || (abs(u(2)) >= h) || (abs(u(3)) >= h))
         for k = 1:length(xk)
             H = zeros(length(xk),1);
             H(k) = H(k) + h;
-            K(j,k) = (f{j}(xk+H, xkprev, blah) - f{j}(xk, xkprev, blah))/h;
+            K(j,k) = (f{j}(xk+H, blah, P) - f{j}(xk, blah, P))/h;
             
         end
     end
@@ -78,7 +76,6 @@ else
     else % Victory
         theta1 = xk(1);
         theta2 = xk(2);
-        P = xk(3);
     end
 end
 
